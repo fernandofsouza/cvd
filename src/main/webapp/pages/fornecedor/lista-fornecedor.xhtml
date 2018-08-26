@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        Pesquisa Fornecedor
+    </ui:define>
+
+    <ui:define name="description">
+        Pesquise os fornecedores de acordo com os filtros informados 
+    </ui:define>
+
+    <ui:define name="body">
+        <adm:breadcrumb title="Pesquisa Fornecedor"/>
+
+			<h:form>
+            	<div class="box box-primary">
+                	<div class="box-header with-border">
+                    	<p:commandButton action="cadastro-fornecedor?faces-redirect=true" ajax="false" icon="fa fa-plus"
+                         	            value="Novo" styleClass="btn-primary"/>
+                    	<p:spacer width="5"/>
+	                    <p:commandButton value="Excluir Selecionado(s)" icon="fa fa-trash" styleClass="btn-danger"
+	                                     action="#{listaFornecedorView.excluirSelecionados()}" 
+	                                     process="@form" update="@form"/>
+	                                     
+	                    <p:spacer width="5"/>
+	                    <p:commandButton value="Olhar Selecionado(s)" 
+	                    				 oncomplete="PF('fornecedorSelecionados').show()"
+	                    				 update="@(.ui-dialog)" 
+	                    				 styleClass="btn-info"
+	                                     icon="fa fa-search"/>
+	                    <p:separator/>
+	                    
+	                    
+	                    <p:dataTable id="fornecedorTable" widgetVar="fornecedorTable" rows="10"
+	                    			 value="#{listaFornecedorView.fornecedores}" var="fornecedor" rowKey="#{fornecedor.id}"	                    			 
+	                                 paginator="true" selection="#{listaFornecedorView.fornecedorSelecionados}" 	                                 
+	                                 paginatorPosition="bottom"	                                 
+	                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+	                                 currentPageReportTemplate=""
+	                                 rowsPerPageTemplate="5,10,15,20,30">
+	
+	
+	
+	                        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>
+	                        
+	                        <p:column headerText="Título"
+	                        		  filterBy="#{fornecedor.nome}" filterMatchMode="contains"
+	                        		  sortBy="#{fornecedor.nome}">
+	                        	<h:link value="#{fornecedor.nome}" outcome="cadastro-fornecedor.xhtml">
+	                        		<f:param name="id" value="#{fornecedor.id}"/>
+	                        	</h:link>
+	                        </p:column>	               
+	                        
+	                        <p:column headerText="CNPJ"
+	                        		  filterBy="#{fornecedor.cnpj}" filterMatchMode="contains"
+	                        		  sortBy="#{fornecedor.cnpj}">
+	                        	<h:outputLabel value="#{fornecedor.cnpj}" />
+	                        </p:column>         
+	                        	
+	                    </p:dataTable>
+					</div>
+	            </div>
+        	</h:form>
+        	
+        	<p:dialog header="Fornecedores Selecionados" widgetVar="fornecedorSelecionados" height="250"
+                  	  width="400" responsive="true" styleClass="box-success">
+	            <p:dataList id="listafornecedorSelecionados" value="#{listaFornecedorView.fornecedorSelecionados}" var="fornecedor"
+	                        type="definition">
+	                        
+	                        ID: #{fornecedor.id} - Nome: #{fornecedor.nome} - CNPJ: #{fornecedor.cnpj}
+	            </p:dataList>
+			</p:dialog>
+
+        
+    </ui:define>
+
+</ui:composition>

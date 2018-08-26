@@ -64,16 +64,41 @@
 			<version>1.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>5.3</version>
-		</dependency>
+		</dependency> 
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
+		</dependency>-->
+		<!-- Admin Template -->
+		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-template</artifactId>
+			<version>1.0.0-RC1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>4.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -85,7 +110,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Criptografia Java https://mvnrepository.com/artifact/org.mindrot/jbcrypt  -->
+		<!-- Criptografia Java https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
 		<dependency>
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>

@@ -1,7 +1,5 @@
 package br.com.fernando.cvd.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +32,7 @@ private String endereco;
 
 private Integer cnpj;
 
-private Date criacao;
+
 
 
 
@@ -90,13 +88,7 @@ public void setCnpj(Integer cnpj) {
 	this.cnpj = cnpj;
 }
 
-public Date getCriacao() {
-	return criacao;
-}
 
-public void setCriacao(Date criacao) {
-	this.criacao = criacao;
-}
 
 @Override
 public int hashCode() {
@@ -138,8 +130,9 @@ public boolean equals(Object obj) {
 @Override
 public String toString() {
 	return "Fornecedor [id=" + id + ", nome=" + nome + ", contato=" + contato + ", email=" + email + ", endereco="
-			+ endereco + ", cnpj=" + cnpj + ", criacao=" + criacao + "]";
+			+ endereco + ", cnpj=" + cnpj + "]";
 }
+
 
 
 
