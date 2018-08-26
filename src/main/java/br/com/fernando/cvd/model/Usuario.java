@@ -1,18 +1,17 @@
 package br.com.fernando.cvd.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 
 
 @Entity
-public class Fornecedor {
+public class Usuario {
 
 
 @SuppressWarnings("unused")
@@ -25,88 +24,136 @@ private Long id;
 @NotEmpty
 private String nome;
 
-@NotEmpty
-private String contato;
+
+private String login;
+
+private String senha;
 
 private String email;
 
 private String endereco;
 
-private Integer cnpj;
+private String cep;
 
-private Date criacao;
+@ManyToOne
+private TipoUsuario tipoUsuario;
 
 
 
-public Fornecedor() {
+public Usuario() {
 	
 }
+
+
 
 public Long getId() {
 	return id;
 }
 
+
+
 public void setId(Long id) {
 	this.id = id;
 }
+
+
 
 public String getNome() {
 	return nome;
 }
 
+
+
 public void setNome(String nome) {
 	this.nome = nome;
 }
 
-public String getContato() {
-	return contato;
+
+
+public String getLogin() {
+	return login;
 }
 
-public void setContato(String contato) {
-	this.contato = contato;
+
+
+public void setLogin(String login) {
+	this.login = login;
 }
+
+
+
+public String getSenha() {
+	return senha;
+}
+
+
+
+public void setSenha(String senha) {
+	this.senha = senha;
+}
+
+
 
 public String getEmail() {
 	return email;
 }
 
+
+
 public void setEmail(String email) {
 	this.email = email;
 }
+
+
 
 public String getEndereco() {
 	return endereco;
 }
 
+
+
 public void setEndereco(String endereco) {
 	this.endereco = endereco;
 }
 
-public Integer getCnpj() {
-	return cnpj;
+
+
+public String getCep() {
+	return cep;
 }
 
-public void setCnpj(Integer cnpj) {
-	this.cnpj = cnpj;
+
+
+public void setCep(String cep) {
+	this.cep = cep;
 }
 
-public Date getCriacao() {
-	return criacao;
+
+
+public TipoUsuario getTipoUsuario() {
+	return tipoUsuario;
 }
 
-public void setCriacao(Date criacao) {
-	this.criacao = criacao;
+
+
+public void setTipoUsuario(TipoUsuario tipoUsuario) {
+	this.tipoUsuario = tipoUsuario;
 }
+
+
 
 @Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
+	result = prime * result + ((cep == null) ? 0 : cep.hashCode());
 	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((login == null) ? 0 : login.hashCode());
 	result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 	return result;
 }
+
+
 
 @Override
 public boolean equals(Object obj) {
@@ -116,16 +163,21 @@ public boolean equals(Object obj) {
 		return false;
 	if (getClass() != obj.getClass())
 		return false;
-	Fornecedor other = (Fornecedor) obj;
-	if (cnpj == null) {
-		if (other.cnpj != null)
+	Usuario other = (Usuario) obj;
+	if (cep == null) {
+		if (other.cep != null)
 			return false;
-	} else if (!cnpj.equals(other.cnpj))
+	} else if (!cep.equals(other.cep))
 		return false;
 	if (id == null) {
 		if (other.id != null)
 			return false;
 	} else if (!id.equals(other.id))
+		return false;
+	if (login == null) {
+		if (other.login != null)
+			return false;
+	} else if (!login.equals(other.login))
 		return false;
 	if (nome == null) {
 		if (other.nome != null)
@@ -135,10 +187,12 @@ public boolean equals(Object obj) {
 	return true;
 }
 
+
+
 @Override
 public String toString() {
-	return "Fornecedor [id=" + id + ", nome=" + nome + ", contato=" + contato + ", email=" + email + ", endereco="
-			+ endereco + ", cnpj=" + cnpj + ", criacao=" + criacao + "]";
+	return "Usuario [id=" + id + ", nome=" + nome + ", login=" + login + ", email=" + email + ", endereco=" + endereco
+			+ ", cep=" + cep + ", tipoUsuario=" + tipoUsuario + "]";
 }
 
 
