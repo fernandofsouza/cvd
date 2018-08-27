@@ -13,7 +13,7 @@
 
 	<ui:define name="body">
 		<f:metadata>
-			<f:viewParam name="id" value="#{cadastroFornecedorView.idFornecedor}"
+			<f:viewParam name="id" value="#{cadastroFornecedorView.idFornecedor} #{Ca}"
 				converter="javax.faces.Long" />
 			<f:event listener="#{cadastroFornecedorView.inicializar()}"
 				type="preRenderView"></f:event>
