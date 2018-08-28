@@ -40,7 +40,7 @@ public class ListaFornecedorView implements Serializable{
 			fornecedores.remove(fornecedor);
 		}
 		
-		FacesUtil.addInfoMessage("Fornecedor(s) excluído(s) com sucesso!");
+		FacesUtil.addInfoMessage("Fornecedor(es) excluído(s) com sucesso!");
 	}
 
 	public List<Fornecedor> getFornecedores() {

@@ -31,7 +31,8 @@ public class ListaTipoPagamentoView implements Serializable{
 
 	@PostConstruct
 	public void inicializar() {
-		tiposPagamento = tipoPagamentoService.listarTodos();		
+		tiposPagamento = tipoPagamentoService.listarTodos();
+		System.out.println("tipos pagamentos cadastrados: "+tiposPagamento.size());
 	}
 	
 	public void excluirSelecionados() {
@@ -40,7 +41,7 @@ public class ListaTipoPagamentoView implements Serializable{
 			tiposPagamento.remove(tipoPagamento);
 		}
 		
-		FacesUtil.addInfoMessage("TipoPagamento(s) excluído(s) com sucesso!");
+		FacesUtil.addInfoMessage("Tipo(s) de Pagamento(s) excluído(s) com sucesso!");
 	}
 
 	public List<TipoPagamento> getTipoPagamentos() {

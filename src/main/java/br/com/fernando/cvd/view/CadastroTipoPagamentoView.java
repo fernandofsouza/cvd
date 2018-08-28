@@ -32,12 +32,12 @@ public class CadastroTipoPagamentoView implements Serializable{
 	
 	public String salvar() {
 		tipoPagamentoService.salvar(tipoPagamento);
-		return "lista-tipoPagamento.xhtml?faces-redirect=true";
+		return "lista-tipo-pagamento.xhtml?faces-redirect=true";
 	}
 	
 	public String excluir() {
 		tipoPagamentoService.excluir(tipoPagamento);
-		return "lista-tipoPagamento.xhtml?faces-redirect=true";
+		return "lista-tipo-pagamento.xhtml?faces-redirect=true";
 	}
 
 

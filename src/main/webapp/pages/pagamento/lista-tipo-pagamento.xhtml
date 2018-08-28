@@ -26,38 +26,37 @@
     </ui:define>
 
     <ui:define name="title">
-        Pesquisa Tarefa
+        Pesquisa Tipo Pagamento
     </ui:define>
 
     <ui:define name="description">
-        Pesquise as tarefas de acordo com os filtros infomados 
+        Pesquise os tipos de pagamento de acordo com os filtros informados 
     </ui:define>
 
     <ui:define name="body">
-        <adm:breadcrumb title="Pesquisa Tarefa"/>
+        <adm:breadcrumb title="Pesquisa Tipo Pagamento"/>
 
 			<h:form>
             	<div class="box box-primary">
                 	<div class="box-header with-border">
-                    	<p:commandButton action="cadastro-tarefa?faces-redirect=true" ajax="false" icon="fa fa-plus"
+                    	<p:commandButton action="cadastro-tipo-pagamento?faces-redirect=true" ajax="false" icon="fa fa-plus"
                          	            value="Novo" styleClass="btn-primary"/>
                     	<p:spacer width="5"/>
 	                    <p:commandButton value="Excluir Selecionado(s)" icon="fa fa-trash" styleClass="btn-danger"
-	                                     action="#{listaTarefaMB.excluirSelecionados()}" 
+	                                     action="#{listaTipoPagamentoView.excluirSelecionados()}" 
 	                                     process="@form" update="@form"/>
 	                                     
 	                    <p:spacer width="5"/>
 	                    <p:commandButton value="Olhar Selecionado(s)" 
-	                    				 oncomplete="PF('tarefaSelecionadas').show()"
+	                    				 oncomplete="PF('tipoPagamentoSelecionados').show()"
 	                    				 update="@(.ui-dialog)" 
 	                    				 styleClass="btn-info"
 	                                     icon="fa fa-search"/>
 	                    <p:separator/>
-	                    
-	                    
-	                    <p:dataTable id="tarefaTable" widgetVar="tarefaTable" rows="10"
-	                    			 value="#{listaTarefaMB.tarefas}" var="tarefa" rowKey="#{tarefa.id}"	                    			 
-	                                 paginator="true" selection="#{listaTarefaMB.tarefaSelecionadas}" 	                                 
+	                    	                    
+	                    <p:dataTable id="tipoPagamentoTable" widgetVar="tipoPagamentoTable" rows="10"
+	                    			 value="#{listaTipoPagamentoView.tipoPagamentos}" var="tipoPagamento" rowKey="#{tipoPagamento.id}"	                    			 
+	                                 paginator="true" selection="#{listaTipoPagamentoView.tipoPagamentoSelecionados}" 	                                 
 	                                 paginatorPosition="bottom"	                                 
 	                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 	                                 currentPageReportTemplate=""
@@ -67,40 +66,31 @@
 	
 	                        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>
 	                        
-	                        <p:column headerText="Título"
-	                        		  filterBy="#{tarefa.titulo}" filterMatchMode="contains"
-	                        		  sortBy="#{tarefa.titulo}">
-	                        	<h:link value="#{tarefa.titulo}" outcome="cadastro-tarefa.xhtml">
-	                        		<f:param name="id" value="#{tarefa.id}"/>
+	                        <p:column headerText="Descrição"
+	                        		  filterBy="#{tipoPagamento.descricao}" filterMatchMode="contains"
+	                        		  sortBy="#{tipoPagamento.descricao}">
+	                        	<h:link value="#{tipoPagamento.descricao}" outcome="cadastro-tipo-pagamento.xhtml">
+	                        		<f:param name="id" value="#{tipoPagamento.id}"/>
 	                        	</h:link>
 	                        </p:column>	               
 	                        
-	                        <p:column headerText="Descrição"
-	                        		  filterBy="#{tarefa.descricao}" filterMatchMode="contains"
-	                        		  sortBy="#{tarefa.descricao}">
-	                        	<h:outputLabel value="#{tarefa.descricao}" />
+	                        <p:column headerText="Parcelado"
+	                        		  filterBy="#{tipoPagamento.parcelado}" filterMatchMode="contains"
+	                        		  sortBy="#{tipoPagamento.parcelado}">
+	                        	<h:outputLabel value="#{tipoPagamento.parcelado}" />
 	                        </p:column>         
-	                        
-	                        <p:column headerText="Status"
-	                        		  filterBy="#{tarefa.status.descricao}" filterMatchMode="contains"
-	                        		  sortBy="#{tarefa.status.descricao}">
-	                        	<h:outputLabel value="#{tarefa.status.descricao}" />
-	                        </p:column>
-	                        
-	                        
-	                        
 	                        	
 	                    </p:dataTable>
 					</div>
 	            </div>
         	</h:form>
         	
-        	<p:dialog header="Tarefas Selecionadas" widgetVar="tarefaSelecionadas" height="250"
+        	<p:dialog header="Tipos Pagamento Selecionados" widgetVar="tipoPagamentoSelecionados" height="250"
                   	  width="400" responsive="true" styleClass="box-success">
-	            <p:dataList id="listatarefaSelecionadas" value="#{listaTarefaMB.tarefaSelecionadas}" var="tarefa"
+	            <p:dataList id="listatipoPagamentoSelecionados" value="#{listaTipoPagamentoView.tipoPagamentoSelecionados}" var="tipoPagamento"
 	                        type="definition">
 	                        
-	                        ID: #{tarefa.id} - Título: #{tarefa.titulo} - Descrição: #{tarefa.descricao} - Status: #{tarefa.status.descricao}
+	                        ID: #{tipoPagamento.id} - Descrição: #{tipoPagamento.descricao} - Parcelado: #{tipoPagamento.parcelado}
 
 	            </p:dataList>
 			</p:dialog>

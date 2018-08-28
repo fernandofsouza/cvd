@@ -32,12 +32,12 @@ public class CadastroTipoUsuarioView implements Serializable{
 	
 	public String salvar() {
 		tipoUsuarioService.salvar(tipoUsuario);
-		return "lista-tipoUsuario.xhtml?faces-redirect=true";
+		return "lista-tipo-usuario.xhtml?faces-redirect=true";
 	}
 	
 	public String excluir() {
 		tipoUsuarioService.excluir(tipoUsuario);
-		return "lista-tipoUsuario.xhtml?faces-redirect=true";
+		return "lista-tipo-usuario.xhtml?faces-redirect=true";
 	}
 
 

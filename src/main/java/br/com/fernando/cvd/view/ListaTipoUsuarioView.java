@@ -40,7 +40,7 @@ public class ListaTipoUsuarioView implements Serializable{
 			tiposUsuario.remove(tipoUsuario);
 		}
 		
-		FacesUtil.addInfoMessage("TipoUsuario(s) excluído(s) com sucesso!");
+		FacesUtil.addInfoMessage("Tipo(s) Usuario(s) excluído(s) com sucesso!");
 	}
 
 	public List<TipoUsuario> getTipoUsuarios() {
