@@ -79,7 +79,23 @@
 	                        		  filterBy="#{fornecedor.cnpj}" filterMatchMode="contains"
 	                        		  sortBy="#{fornecedor.cnpj}">
 	                        	<h:outputLabel value="#{fornecedor.cnpj}" />
-	                        </p:column>         
+	                        </p:column>
+	                        
+	                        <p:column headerText="Contato"
+	                        		  filterBy="#{fornecedor.contato}" filterMatchMode="contains"
+	                        		  sortBy="#{fornecedor.contato}">
+	                        	<h:outputLabel value="#{fornecedor.contato}" />
+	                        </p:column> 
+	                        <p:column headerText="e-mail"
+	                        		  filterBy="#{fornecedor.email}" filterMatchMode="contains"
+	                        		  sortBy="#{fornecedor.email}">
+	                        	<h:outputLabel value="#{fornecedor.email}" />
+	                        </p:column> 
+	                        <p:column headerText="Endereço"
+	                        		  filterBy="#{fornecedor.endereco}" filterMatchMode="contains"
+	                        		  sortBy="#{fornecedor.endereco}">
+	                        	<h:outputLabel value="#{fornecedor.endereco}" />
+	                        </p:column>          
 	                        	
 	                    </p:dataTable>
 					</div>
@@ -91,7 +107,9 @@
 	            <p:dataList id="listafornecedorSelecionados" value="#{listaFornecedorView.fornecedorSelecionados}" var="fornecedor"
 	                        type="definition">
 	                        
-	                        ID: #{fornecedor.id} - Nome: #{fornecedor.nome} - CNPJ: #{fornecedor.cnpj}
+	                        ID: #{fornecedor.id} - Nome: #{fornecedor.nome} - CNPJ: #{fornecedor.cnpj} -
+	                        Contato: #{fornecedor.contato} - e-mail: #{fornecedor.email} -Endereço: #{fornecedor.endereco} 
+	                        
 	            </p:dataList>
 			</p:dialog>
 

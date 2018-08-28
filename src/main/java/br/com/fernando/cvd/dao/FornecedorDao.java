@@ -43,7 +43,7 @@ public class FornecedorDao implements Serializable {
 	public List<Fornecedor> listarTodos() {
 		List<Fornecedor> f = new ArrayList<Fornecedor>();
 		try {
-			f = (List<Fornecedor>) manager.createQuery("Select f FROM fornecedor f", Fornecedor.class).getResultList();
+			f = (List<Fornecedor>) manager.createQuery("Select f FROM Fornecedor f", Fornecedor.class).getResultList();
 		} catch (Exception e) {
 			System.out.println("Erro: ");
 			e.printStackTrace();
