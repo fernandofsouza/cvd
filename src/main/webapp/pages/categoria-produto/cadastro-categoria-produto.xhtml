@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro Categoria Produto
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+			<f:viewParam name="id"
+				value="#{cadastroCategoriaProdutoView.idCategoriaProduto}"
+				converter="javax.faces.Long" />
+			<f:event listener="#{cadastroCategoriaProdutoView.inicializar()}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+
+		<adm:breadcrumb
+			title="Cadastro Categoria Produto #{cadastroCategoriaProdutoView.categoriaProduto.id}"
+			link="cadastro-categoria-produto?id=#{cadastroCategoriaProdutoView.categoriaProduto.id}" />
+		<h:form id="form" prependId="false">
+			<p:focus />
+
+
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<div id="main-buttons" class="hidden-sm hidden-xs">
+						<p:commandButton value="Salvar" update="@form"
+							action="#{cadastroCategoriaProdutoView.salvar()}"
+							icon="fa fa-check" styleClass="btn-primary" />
+						<p:spacer width="5" />
+
+						<p:commandButton value="Excluir" process="@this"
+							icon="fa fa-trash"
+							action="#{cadastroCategoriaProdutoView.excluir()}"
+							styleClass="btn-danger">
+						</p:commandButton>
+						<p:spacer width="5" />
+						<p:commandButton value="Voltar"
+							action="lista-categoria-produto?faces-redirect=true"
+							process="@this" icon="fa fa-close" />
+
+					</div>
+
+					<p:splitButton value="Salvar" update="@form"
+						action="#{cadastroCategoriaProdutoView.salvar()}"
+						icon="fa fa-check" styleClass="hidden-md hidden-lg btn-primary">
+						<p:menuitem value="Excluir"
+							action="#{cadastroCategoriaProdutoView.excluir()}"
+							process="@this" icon="fa fa-trash" />
+						<p:separator />
+						<p:menuitem value="Voltar"
+							action="lista-categoria-produto?faces-redirect=true"
+							process="@this" icon="fa fa-close" />
+					</p:splitButton>
+
+
+
+					<p:separator />
+
+					<div class="ui-fluid">
+						<p:panelGrid id="capaPanel" columns="4" layout="grid">
+							<p:outputLabel value="Nome" for="nome" />
+							<p:inputText id="nome"
+								value="#{cadastroCategoriaProdutoView.categoriaProduto.nome}" />
+
+							<p:outputLabel value="Descrição" for="descricao" />
+							<p:inputText id="descricao"
+								value="#{cadastroCategoriaProdutoView.categoriaProduto.descricao}" />
+
+							<p:outputLabel value="Quantidade Unitária" for="qtd_unit" />
+							<p:inputText id="qtd_unit"
+								value="#{cadastroCategoriaProdutoView.categoriaProduto.quantidadeUnitaria}" />
+
+							<p:outputLabel value="Código" for="codigo" />
+							<p:inputText id="codigo"
+								value="#{cadastroCategoriaProdutoView.categoriaProduto.codigo}" />
+
+						</p:panelGrid>
+
+
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -14,7 +14,7 @@
 	<ui:define name="body">
 		<f:metadata>
 			<f:viewParam name="id"
-				value="#{cadastroFornecedorView.idFornecedor} #{Ca}"
+				value="#{cadastroFornecedorView.idFornecedor}"
 				converter="javax.faces.Long" />
 			<f:event listener="#{cadastroFornecedorView.inicializar()}"
 				type="preRenderView"></f:event>
@@ -38,7 +38,7 @@
 						</p:commandButton>
 						<p:spacer width="5" />
 						<p:commandButton value="Voltar"
-							action="lista-fornecedor?faces-redirect=true" process="@this"
+							action="lista-fornecedor.xhtml?faces-redirect=true" process="@this"
 							icon="fa fa-close" />
 
 					</div>
@@ -51,7 +51,7 @@
 							icon="fa fa-trash" />
 						<p:separator />
 						<p:menuitem value="Voltar"
-							action="lista-fornecedor?faces-redirect=true" process="@this"
+							action="lista-fornecedor.xhtml?faces-redirect=true" process="@this"
 							icon="fa fa-close" />
 					</p:splitButton>
 
