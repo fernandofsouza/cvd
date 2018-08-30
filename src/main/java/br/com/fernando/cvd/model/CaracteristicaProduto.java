@@ -1,20 +1,20 @@
 package br.com.fernando.cvd.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 
 
-@Entity(name="categoria_produto")
-public class CategoriaProduto implements Serializable {
+@Entity(name="caracteristica_produto")
+public class CaracteristicaProduto implements Serializable {
 
 
 
@@ -27,15 +27,16 @@ private Long id;
 @NotEmpty
 private String descricao;
 
-private String nome;
 
-@Column(name="qtd_un")
-private BigDecimal quantidadeUnitaria;
+@Lob
+@Column(name="figura1")
+private byte[] figura1;
 
-@Column(name="cod_categoria")
-private String codigo;
 
-public CategoriaProduto() {
+@Column(name="texto_caract")
+private String texto;
+
+public CaracteristicaProduto() {
 	
 }
 
@@ -47,14 +48,6 @@ public void setId(Long id) {
 	this.id = id;
 }
 
-public String getNome() {
-	return nome;
-}
-
-public void setNome(String nome) {
-	this.nome = nome;
-}
-
 public String getDescricao() {
 	return descricao;
 }
@@ -63,30 +56,25 @@ public void setDescricao(String descricao) {
 	this.descricao = descricao;
 }
 
-public BigDecimal getQuantidadeUnitaria() {
-	return quantidadeUnitaria;
+public byte[] getFigura1() {
+	return figura1;
 }
 
-public void setQuantidadeUnitaria(BigDecimal quantidadeUnitaria) {
-	this.quantidadeUnitaria = quantidadeUnitaria;
+
+public String getTexto() {
+	return texto;
 }
 
-public String getCodigo() {
-	return codigo;
-}
-
-public void setCodigo(String codigo) {
-	this.codigo = codigo;
+public void setTexto(String texto) {
+	this.texto = texto;
 }
 
 @Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 	result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	result = prime * result + ((quantidadeUnitaria == null) ? 0 : quantidadeUnitaria.hashCode());
 	return result;
 }
 
@@ -98,12 +86,7 @@ public boolean equals(Object obj) {
 		return false;
 	if (getClass() != obj.getClass())
 		return false;
-	CategoriaProduto other = (CategoriaProduto) obj;
-	if (codigo == null) {
-		if (other.codigo != null)
-			return false;
-	} else if (!codigo.equals(other.codigo))
-		return false;
+	CaracteristicaProduto other = (CaracteristicaProduto) obj;
 	if (descricao == null) {
 		if (other.descricao != null)
 			return false;
@@ -114,19 +97,14 @@ public boolean equals(Object obj) {
 			return false;
 	} else if (!id.equals(other.id))
 		return false;
-	if (quantidadeUnitaria == null) {
-		if (other.quantidadeUnitaria != null)
-			return false;
-	} else if (!quantidadeUnitaria.equals(other.quantidadeUnitaria))
-		return false;
 	return true;
 }
 
 @Override
 public String toString() {
-	return "CategoriaProduto [id=" + id + ", descricao=" + descricao + ", quantidadeUnitaria=" + quantidadeUnitaria
-			+ ", codigo=" + codigo + "]";
+	return "CaracteristicaProduto [id=" + id + ", descricao=" + descricao + ", texto=" + texto + "]";
 }
+
 
 
 }
