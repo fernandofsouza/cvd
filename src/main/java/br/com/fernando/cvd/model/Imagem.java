@@ -4,17 +4,20 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
 
-@Entity
-public class Imagens implements Serializable{
+@Entity(name="imagens")
+public class Imagem implements Serializable{
 
 
 
@@ -31,11 +34,26 @@ private String tipo;
 
 private BigDecimal tamanho;
 
-@Lob
+//@Lob
+@Type(type="org.hibernate.type.BinaryType")
 private byte[] imagem;
 
+@ManyToOne(fetch=FetchType.LAZY)
+@JoinColumn(name="id_produto")
+private Produto produto;
 
-public Imagens() {
+
+public Produto getProduto() {
+	return produto;
+}
+
+
+public void setProduto(Produto produto) {
+	this.produto = produto;
+}
+
+
+public Imagem() {
 	
 }
 
@@ -80,6 +98,16 @@ public void setTamanho(BigDecimal tamanho) {
 }
 
 
+public byte[] getImagem() {
+	return imagem;
+}
+
+
+public void setImagem(byte[] imagem) {
+	this.imagem = imagem;
+}
+
+
 @Override
 public int hashCode() {
 	final int prime = 31;
@@ -100,7 +128,7 @@ public boolean equals(Object obj) {
 		return false;
 	if (getClass() != obj.getClass())
 		return false;
-	Imagens other = (Imagens) obj;
+	Imagem other = (Imagem) obj;
 	if (id == null) {
 		if (other.id != null)
 			return false;

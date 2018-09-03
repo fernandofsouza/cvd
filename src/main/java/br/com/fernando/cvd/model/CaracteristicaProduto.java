@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,11 +25,6 @@ private Long id;
 
 @NotEmpty
 private String descricao;
-
-
-@Lob
-@Column(name="figura1")
-private byte[] figura1;
 
 
 @Column(name="texto_caract")
@@ -54,10 +48,6 @@ public String getDescricao() {
 
 public void setDescricao(String descricao) {
 	this.descricao = descricao;
-}
-
-public byte[] getFigura1() {
-	return figura1;
 }
 
 

@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.fernando.cvd.exception.NegocioException;
-import br.com.fernando.cvd.model.Imagens;
+import br.com.fernando.cvd.model.Imagem;
 
 
 
@@ -21,11 +21,11 @@ public class ImagensDao implements Serializable {
 	@PersistenceContext(name="cvdPU")
 	EntityManager manager;
 
-	public Imagens salvar(Imagens imagem) {
+	public Imagem salvar(Imagem imagem) {
 		return manager.merge(imagem);
 	}
 	
-	public void excluir(Imagens imagem) {
+	public void excluir(Imagem imagem) {
 		try {
 			imagem = buscarPorId(imagem.getId());
 			manager.remove(imagem);
@@ -36,15 +36,15 @@ public class ImagensDao implements Serializable {
 		}
 	}
 
-	public Imagens buscarPorId(Long id) {		
-		return manager.find(Imagens.class, id);
+	public Imagem buscarPorId(Long id) {		
+		return manager.find(Imagem.class, id);
 	}
 	
 
-	public List<Imagens> listarTodos() {
-		List<Imagens> i = new ArrayList<Imagens>();
+	public List<Imagem> listarTodos() {
+		List<Imagem> i = new ArrayList<Imagem>();
 		try {
-			i = (List<Imagens>) manager.createQuery("Select i FROM Imagens_i", Imagens.class).getResultList();
+			i = (List<Imagem>) manager.createQuery("Select i FROM Imagem i", Imagem.class).getResultList();
 		} catch (Exception e) {
 			System.out.println("Erro: ");
 			e.printStackTrace();

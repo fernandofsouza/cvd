@@ -8,14 +8,15 @@
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="title">
-        Cadastro Fornecedor
+        Cadastro Produto
     </ui:define>
 
 	<ui:define name="body">
 		<f:metadata>
-			<f:viewParam name="id" value="#{cadastroFornecedorView.idFornecedor}"
+			<f:viewParam name="id"
+				value="#{cadastroProdutoView.idProduto}"
 				converter="javax.faces.Long" />
-			<f:event listener="#{cadastroFornecedorView.inicializar()}"
+			<f:event listener="#{cadastroProdutoView.inicializar()}"
 				type="preRenderView"></f:event>
 		</f:metadata>
 
@@ -27,31 +28,31 @@
 				<div class="box-header with-border">
 					<div id="main-buttons" class="hidden-sm hidden-xs">
 						<p:commandButton value="Salvar" update="@form"
-							action="#{cadastroFornecedorView.salvar()}" icon="fa fa-check"
+							action="#{cadastroProdutoView.salvar()}" icon="fa fa-check"
 							styleClass="btn-primary" />
 						<p:spacer width="5" />
 
 						<p:commandButton value="Excluir" process="@this"
-							icon="fa fa-trash" action="#{cadastroFornecedorView.excluir()}"
+							icon="fa fa-trash" action="#{cadastroProdutoView.excluir()}"
 							styleClass="btn-danger">
 						</p:commandButton>
 						<p:spacer width="5" />
 						<p:commandButton value="Voltar"
-							action="lista-fornecedor.xhtml?faces-redirect=true"
-							process="@this" icon="fa fa-close" />
+							action="lista-produto.xhtml?faces-redirect=true" process="@this"
+							icon="fa fa-close" />
 
 					</div>
 
 					<p:splitButton value="Salvar" update="@form"
-						action="#{cadastroFornecedorView.salvar()}" icon="fa fa-check"
+						action="#{cadastroProdutoView.salvar()}" icon="fa fa-check"
 						styleClass="hidden-md hidden-lg btn-primary">
 						<p:menuitem value="Excluir"
-							action="#{cadastroFornecedorView.excluir()}" process="@this"
+							action="#{cadastroProdutoView.excluir()}" process="@this"
 							icon="fa fa-trash" />
 						<p:separator />
 						<p:menuitem value="Voltar"
-							action="lista-fornecedor.xhtml?faces-redirect=true"
-							process="@this" icon="fa fa-close" />
+							action="lista-produto.xhtml?faces-redirect=true" process="@this"
+							icon="fa fa-close" />
 					</p:splitButton>
 
 
@@ -63,26 +64,13 @@
 
 							<p:outputLabel value="Nome" for="nome" />
 							<p:inputText id="nome"
-								value="#{cadastroFornecedorView.fornecedor.nome}" />
+								value="#{cadastroProdutoView.produto.nome}" />
 
-							<p:outputLabel value="CNPJ" for="cnpj" />
-							<p:inputText id="cnpj"
-								value="#{cadastroFornecedorView.fornecedor.cnpj}" />
-
-							<p:outputLabel value="Contato" for="contato" />
-							<p:inputText id="contato"
-								value="#{cadastroFornecedorView.fornecedor.contato}" />
-
-							<p:outputLabel value="e-mail" for="email" />
-							<p:inputText id="email"
-								value="#{cadastroFornecedorView.fornecedor.email}" />
-
-							<p:outputLabel value="Endereço" for="endereco" />
-							<p:inputText id="endereco"
-								value="#{cadastroFornecedorView.fornecedor.endereco}" />
+							
 						</p:panelGrid>
-					</div>
 
+
+					</div>
 				</div>
 			</div>
 		</h:form>

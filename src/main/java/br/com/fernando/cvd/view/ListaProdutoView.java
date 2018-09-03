@@ -24,15 +24,18 @@ public class ListaProdutoView implements Serializable{
 	private ProdutoService produtoService;
 	
 	private List<Produto> produtos = new ArrayList<>();
-	
-	
+		
 	private List<Produto> produtosSelecionados = new ArrayList<>();
 	
+	private Produto produto = new Produto();
 		
 
 	@PostConstruct
 	public void inicializar() {
-		produtos = produtoService.listarTodos();		
+		produtos = produtoService.listarTodos();
+		produto = produtoService.buscarPorId(1l);
+		System.out.println("Produtos: "+produto.getNome());
+	
 	}
 	
 	public void excluirSelecionados() {

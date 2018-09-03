@@ -64,16 +64,9 @@
 			<version>1.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>5.3</version>
-		</dependency> 
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>1.0.10</version>
-		</dependency>-->
+		<!-- <dependency> <groupId>org.primefaces</groupId> <artifactId>primefaces</artifactId> 
+			<version>5.3</version> </dependency> <dependency> <groupId>org.primefaces.themes</groupId> 
+			<artifactId>all-themes</artifactId> <version>1.0.10</version> </dependency> -->
 		<!-- Admin Template -->
 		<dependency>
 			<groupId>com.github.adminfaces</groupId>
@@ -115,6 +108,12 @@
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.4.0.GA</version>
 		</dependency>
 	</dependencies>
 
