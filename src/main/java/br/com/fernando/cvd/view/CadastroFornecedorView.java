@@ -26,6 +26,7 @@ public class CadastroFornecedorView implements Serializable{
 	public void inicializar() {
 		if (idFornecedor != null) {
 			fornecedor = fornecedorService.buscarPorId(idFornecedor);
+			System.out.println("Id do Fornecedor eh: "+idFornecedor);
 		}
 	}
 	

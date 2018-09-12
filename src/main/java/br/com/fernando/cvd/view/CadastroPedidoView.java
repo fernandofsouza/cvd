@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,7 +20,7 @@ import br.com.fernando.cvd.service.ProdutoService;
 import br.com.fernando.cvd.service.UsuarioService;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class CadastroPedidoView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +40,7 @@ public class CadastroPedidoView implements Serializable {
 	
 	private Long idProduto;
 	
-	private Produto produto;
+	private Produto produto = new Produto();
 	
 	private ItemPedido item = new ItemPedido();
 	
@@ -53,16 +54,21 @@ public class CadastroPedidoView implements Serializable {
 	
 	@PostConstruct
 	public void inicializar() {
+		System.out.println("##### Inicializou CadastroPedidoView ######");
 		if (idProduto != null) {
+			System.out.println("idProduto antes de buscar no banco: "+idProduto);
 			produto = produtoService.buscarPorId(idProduto);
-			System.out.println("Produto_inicializar######: "+produto.getNome());
-			
+			System.out.println("Produto_inicializar: "+produto.getDescricao());
+			usuario = usuarioService.buscarPorId(1L);
+			preencherPedido();
 		}
-		usuario = usuarioService.buscarPorId(1L);
-		preencherPedido();
-		
+				
 	}
-	
+	@PreDestroy
+	public void finalizar(){
+		System.out.println("### Encerrou CadastroPedidoView ###");
+	}
+		
 	public void preencherPedido(){
 		
 		item.setProduto(produto);
@@ -71,10 +77,11 @@ public class CadastroPedidoView implements Serializable {
 		pedido.setDataPedido(new Date());
 		pedido.setItemPedido(itens);
 		pedido.setUsuario(usuario);
+		System.out.println("Id do produto: "+produto.getId());
 		pedido.setNumeroPedido(produto.getId()+1000L);
-		System.out.println("num_pedido: #######"+pedido.getNumeroPedido());
+		System.out.println("num_pedido: "+pedido.getNumeroPedido());
 	
-		System.out.println("Itens ########"+pedido.getItemPedido().size());
+		System.out.println("Itens: "+pedido.getItemPedido().size());
 	}
 	public String salvar() {
 		

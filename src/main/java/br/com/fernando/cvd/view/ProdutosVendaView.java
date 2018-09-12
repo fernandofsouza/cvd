@@ -35,12 +35,17 @@ public class ProdutosVendaView implements Serializable {
 
 	private Produto produto = new Produto();
 	
+	private Produto produtoSelecionado = new Produto();
+	
+	private Double quantidade = new Double(0);
+	
+	private Long idProduto;
 
 	@PostConstruct
 	public void inicializar() {
 		produtos = produtoService.listarTodos();
 		produto = produtoService.buscarPorId(new Long(17));
-		System.out.println("Produtos: " + produto.getNome());
+		System.out.println("Produto: " + produto.getNome());
 		
 
 	}
@@ -64,6 +69,12 @@ public class ProdutosVendaView implements Serializable {
 		}
 	}
 	
+	public void selecionaProduto(){
+		System.out.println("valor produto "+produtoSelecionado.getPrecoUnitario());
+		produto = produtoService.buscarPorId(idProduto);
+		System.out.println("idproduto neste momento: "+idProduto);
+		//return "cadastro-pedido.xhtml?faces-redirect=true";
+	}
 	
 	public void excluirSelecionados() {
 		for (Produto produto : produtosSelecionados) {
@@ -111,6 +122,30 @@ public class ProdutosVendaView implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public Double getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public Long getIdProduto() {
+		return idProduto;
+	}
+
+	public void setIdProduto(Long idProduto) {
+		this.idProduto = idProduto;
+	}
+
+	public Produto getProdutoSelecionado() {
+		return produtoSelecionado;
+	}
+
+	public void setProdutoSelecionado(Produto produtoSelecionado) {
+		this.produtoSelecionado = produtoSelecionado;
 	}
 
 	}

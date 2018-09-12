@@ -13,7 +13,7 @@
 
 	<ui:define name="body">
 		<f:metadata>
-			<f:viewParam name="id" value="#{cadastroPedidoView.idProduto}"
+			<f:viewParam name="idProduto" value="#{cadastroPedidoView.idProduto}"
 				converter="javax.faces.Long" />
 			<f:event listener="#{cadastroPedidoView.inicializar()}"
 				type="preRenderView"></f:event>
@@ -67,9 +67,14 @@
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 							currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
-							<p:column headerText="Produto" filterBy="#{item.produto.nome}"
-								filterMatchMode="contains" sortBy="#{item.produto.nome}">
-								<h:link value="#{item.produto.nome}"
+							<p:column headerText="idProduto">
+								<h:link value="#{cadastroPedidoView.idProduto}"
+									outcome="/pages/principal/produtos-venda.xhtml">
+								</h:link>
+							</p:column>
+							<p:column headerText="Produto" filterBy="#{cadastroPedidoView.produto.descricao}"
+								filterMatchMode="contains" sortBy="#{cadastroPedidoView.produto.descricao}">
+								<h:link value="#{cadastroPedidoView.produto.descricao}"
 									outcome="/pages/principal/produtos-venda.xhtml">
 								</h:link>
 							</p:column>
