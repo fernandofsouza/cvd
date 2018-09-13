@@ -64,6 +64,7 @@
 									<h:link value="#{produto.id}"
 										outcome="/pages/pedido/cadastro-pedido.xhtml">
 										<f:param name="idProduto" value="#{produto.id}"/>
+										<f:param name="qtd" value="#{produtosVendaView.quantidade}"/>
 									</h:link>
 								</h:panelGrid>
 

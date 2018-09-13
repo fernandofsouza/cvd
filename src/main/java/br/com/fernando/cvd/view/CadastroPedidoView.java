@@ -70,10 +70,8 @@ public class CadastroPedidoView implements Serializable {
 	}
 		
 	public void preencherPedido(){
-		
-		item.setProduto(produto);
-		item.setQuantidade(quantidade);
-		itens.add(item);
+		adicionarItem();
+		//pedido
 		pedido.setDataPedido(new Date());
 		pedido.setItemPedido(itens);
 		pedido.setUsuario(usuario);
@@ -82,6 +80,15 @@ public class CadastroPedidoView implements Serializable {
 		System.out.println("num_pedido: "+pedido.getNumeroPedido());
 	
 		System.out.println("Itens: "+pedido.getItemPedido().size());
+	}
+	public void adicionarItem() {
+		//itens
+		item.setProduto(produto);
+		item.setQuantidade(quantidade);
+		System.out.println("item quantidade: "+quantidade);
+		item.setPrecoUnitario(produto.getPrecoUnitario());
+		itens.add(item);
+		item = new ItemPedido();
 	}
 	public String salvar() {
 		

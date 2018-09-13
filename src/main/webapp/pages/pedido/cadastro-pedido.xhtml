@@ -15,6 +15,8 @@
 		<f:metadata>
 			<f:viewParam name="idProduto" value="#{cadastroPedidoView.idProduto}"
 				converter="javax.faces.Long" />
+				<f:viewParam name="qtd" value="#{cadastroPedidoView.quantidade}"
+				converter="javax.faces.Double"/>
 			<f:event listener="#{cadastroPedidoView.inicializar()}"
 				type="preRenderView"></f:event>
 		</f:metadata>
@@ -68,13 +70,13 @@
 							currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
 							<p:column headerText="idProduto">
-								<h:link value="#{cadastroPedidoView.idProduto}"
+								<h:link value="#{item.produto.id}"
 									outcome="/pages/principal/produtos-venda.xhtml">
 								</h:link>
 							</p:column>
 							<p:column headerText="Produto" filterBy="#{cadastroPedidoView.produto.descricao}"
 								filterMatchMode="contains" sortBy="#{cadastroPedidoView.produto.descricao}">
-								<h:link value="#{cadastroPedidoView.produto.descricao}"
+								<h:link value="#{item.produto.descricao}"
 									outcome="/pages/principal/produtos-venda.xhtml">
 								</h:link>
 							</p:column>

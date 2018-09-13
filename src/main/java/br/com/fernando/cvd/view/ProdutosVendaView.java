@@ -37,18 +37,33 @@ public class ProdutosVendaView implements Serializable {
 	
 	private Produto produtoSelecionado = new Produto();
 	
-	private Double quantidade = new Double(0);
+	private Double quantidade = new Double(1);
 	
 	private Long idProduto;
 
 	@PostConstruct
 	public void inicializar() {
 		produtos = produtoService.listarTodos();
-		produto = produtoService.buscarPorId(new Long(17));
-		System.out.println("Produto: " + produto.getNome());
 		
-
 	}
+	
+	
+	public void selecionaProduto(){
+		System.out.println("valor produto "+produtoSelecionado.getPrecoUnitario());
+		produto = produtoService.buscarPorId(idProduto);
+		System.out.println("idproduto neste momento: "+idProduto);
+		//return "cadastro-pedido.xhtml?faces-redirect=true";
+	}
+	
+	public void excluirSelecionados() {
+		for (Produto produto : produtosSelecionados) {
+			produtos.remove(produto);
+		}
+
+		FacesUtil.addInfoMessage("Produto(s) excluído(s) do carrinho com sucesso!");
+	}
+	
+	
 	
 	public StreamedContent getImagem() throws IOException {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -69,21 +84,6 @@ public class ProdutosVendaView implements Serializable {
 		}
 	}
 	
-	public void selecionaProduto(){
-		System.out.println("valor produto "+produtoSelecionado.getPrecoUnitario());
-		produto = produtoService.buscarPorId(idProduto);
-		System.out.println("idproduto neste momento: "+idProduto);
-		//return "cadastro-pedido.xhtml?faces-redirect=true";
-	}
-	
-	public void excluirSelecionados() {
-		for (Produto produto : produtosSelecionados) {
-			produtos.remove(produto);
-		}
-
-		FacesUtil.addInfoMessage("Produto(s) excluído(s) do carrinho com sucesso!");
-	}
-
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
