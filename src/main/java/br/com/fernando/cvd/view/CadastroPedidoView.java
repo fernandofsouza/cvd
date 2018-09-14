@@ -36,7 +36,7 @@ public class CadastroPedidoView implements Serializable {
 	
 	private Long idPedido;
 	
-	private Double quantidade;
+	private Double quantidade= new Double(1);
 	
 	private Long idProduto;
 	

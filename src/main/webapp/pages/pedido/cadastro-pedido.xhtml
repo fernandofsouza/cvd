@@ -15,8 +15,6 @@
 		<f:metadata>
 			<f:viewParam name="idProduto" value="#{cadastroPedidoView.idProduto}"
 				converter="javax.faces.Long" />
-				<f:viewParam name="qtd" value="#{cadastroPedidoView.quantidade}"
-				converter="javax.faces.Double"/>
 			<f:event listener="#{cadastroPedidoView.inicializar()}"
 				type="preRenderView"></f:event>
 		</f:metadata>
@@ -74,8 +72,10 @@
 									outcome="/pages/principal/produtos-venda.xhtml">
 								</h:link>
 							</p:column>
-							<p:column headerText="Produto" filterBy="#{cadastroPedidoView.produto.descricao}"
-								filterMatchMode="contains" sortBy="#{cadastroPedidoView.produto.descricao}">
+							<p:column headerText="Produto"
+								filterBy="#{cadastroPedidoView.produto.descricao}"
+								filterMatchMode="contains"
+								sortBy="#{cadastroPedidoView.produto.descricao}">
 								<h:link value="#{item.produto.descricao}"
 									outcome="/pages/principal/produtos-venda.xhtml">
 								</h:link>
@@ -89,7 +89,9 @@
 							<p:column headerText="Valor Unitário"
 								filterBy="#{item.precoUnitario}" filterMatchMode="contains"
 								sortBy="#{item.precoUnitario}">
-								<h:outputLabel value="#{item.precoUnitario}" />
+								<h:outputLabel value="#{item.precoUnitario}" >
+									<f:convertNumber type="currency"/>
+								</h:outputLabel>
 							</p:column>
 						</p:dataTable>
 

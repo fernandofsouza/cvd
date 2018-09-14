@@ -44,28 +44,18 @@
 						paginatorPosition="bottom">
 						<p:panel header="#{produto.nome}" styleClass="card">
 							<h:panelGrid columns="3" cellpadding="2">
-								<p:graphicImage name="images/produtos/#{produto.nome}.jpg" />
+								<p:link id="idimg" outcome="/pages/pedido/cadastro-pedido.xhtml">
+									<f:param name="idProduto" value="#{produto.id}" />
+									<p:graphicImage name="images/produtos/#{produto.nome}.jpg" />
+								</p:link>
 								<h:outputText value="#{produto.descricao}"
-									style="font-size:30px;" />
+									style="font-size:20px;" />
 								<h:panelGrid layout="grid" columns="1">
-									<h:outputText value="Preço" style="font-size:30px;" />
+									<h:outputText value="Preço" style="font-size:20px;" />
 									<h:outputText value="#{produto.precoUnitario}"
-										style="font-size:30px;">
-										<f:convertNumber maxFractionDigits="2" />
+										style="font-size:20px;">
+										<f:convertNumber type="currency" />
 									</h:outputText>
-									<h:outputText value="Quantidade" style="font-size:30px;" />
-									<p:spinner value="#{produtosVendaView.quantidade}" />
-									<p:commandButton
-										action="/pages/pedido/cadastro-pedido.xhtml?faces-redirect=true"
-										ajax="false" icon="fa fa-plus" value="Comprar"
-										styleClass="btn-primary">
-
-									</p:commandButton>
-									<h:link value="#{produto.id}"
-										outcome="/pages/pedido/cadastro-pedido.xhtml">
-										<f:param name="idProduto" value="#{produto.id}"/>
-										<f:param name="qtd" value="#{produtosVendaView.quantidade}"/>
-									</h:link>
 								</h:panelGrid>
 
 							</h:panelGrid>
