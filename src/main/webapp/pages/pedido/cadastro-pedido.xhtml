@@ -26,13 +26,14 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<div id="main-buttons" class="hidden-sm hidden-xs">
-						<p:commandButton value="Salvar" update="@form"
+						<p:commandButton value="Comprar" update="@form"
 							action="#{cadastroPedidoView.salvar()}" icon="fa fa-check"
 							styleClass="btn-primary" />
 						<p:spacer width="5" />
 
-						<p:commandButton id="btn_excluir" value="Excluir" process="@this"
-							icon="fa fa-trash" action="#{cadastroPedidoView.limparItens()}"
+						<p:commandButton id="btn_excluir" value="Excluir"
+							update="pedidoTable" icon="fa fa-trash"
+							action="#{cadastroPedidoView.limparItens()}"
 							styleClass="btn-danger">
 						</p:commandButton>
 						<p:spacer width="5" />
@@ -41,12 +42,12 @@
 							process="@this" icon="fa fa-close" />
 
 					</div>
-					<p:splitButton value="Salvar" update="@form"
+					<p:splitButton value="Comprar" update="@form"
 						action="#{cadastroPedidoView.salvar()}" icon="fa fa-check"
 						styleClass="hidden-md hidden-lg btn-primary">
 						<p:menuitem value="Excluir"
-							actionListener="#{cadastroPedidoView.limparItens()}"
-							process="@this" icon="fa fa-trash" />
+							action="#{cadastroPedidoView.limparItens()}" update="pedidoTable"
+							icon="fa fa-trash" />
 						<p:separator />
 						<p:menuitem value="Voltar"
 							action="lista-pedido.xhtml?faces-redirect=true" process="@this"
@@ -63,38 +64,44 @@
 						<p:separator />
 						<p:dataTable id="pedidoTable" widgetVar="pedidoTable" rows="5"
 							value="#{cadastroPedidoView.itens}" var="item"
-							rowKey="#{item.id}" paginator="true" paginatorPosition="bottom"
+							rowKey="#{item.produto.id}" paginator="true"
+							paginatorPosition="bottom"
+							selection="#{cadastroPedidoView.itensSelecionados}"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 							currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
-
+							<p:column selectionMode="multiple" width="5%"
+								styleClass="align-center" />
 							<p:column headerText="idProduto">
 								<h:link value="#{item.produto.id}"
 									outcome="/pages/principal/produtos-venda.xhtml">
 								</h:link>
 							</p:column>
-							<p:column headerText="Produto"
-								filterBy="#{cadastroPedidoView.produto.descricao}"
-								filterMatchMode="contains"
-								sortBy="#{cadastroPedidoView.produto.descricao}">
+							<p:column headerText="Produto">
 								<h:link value="#{item.produto.descricao}"
 									outcome="/pages/principal/produtos-venda.xhtml">
 								</h:link>
 							</p:column>
 
-							<p:column headerText="Quantidade" filterBy="#{item.quantidade}"
-								filterMatchMode="contains" sortBy="#{item.quantidade}">
+							<p:column headerText="Quantidade">
 								<h:outputLabel value="#{item.quantidade}" />
 							</p:column>
 
-							<p:column headerText="Valor Unitário"
-								filterBy="#{item.precoUnitario}" filterMatchMode="contains"
-								sortBy="#{item.precoUnitario}">
-								<h:outputLabel value="#{item.precoUnitario}" >
-									<f:convertNumber type="currency"/>
+							<p:column headerText="Valor Unitário">
+								<h:outputLabel value="#{item.precoUnitario}">
+									<f:convertNumber type="currency" />
 								</h:outputLabel>
 							</p:column>
 						</p:dataTable>
-
+					</div>
+					<div class="ui-fluid">
+						<p:panel header="Forma de Pagamento" styleClass="card no-border">
+							<p:outputLabel for="radio" value="Forma de Pagamento" />
+							<p:selectOneRadio id="radio" value="#{cadastroPedidoView.pedido.tipoPagamento}"
+								layout="responsive" columns="3" converter="cvdConverter">
+								<f:selectItems value="#{cadastroPedidoView.tiposPagamento}" var="tipoPagamento"
+									itemLabel="#{tipoPagamento.descricao}" itemValue="#{tipoPagamento}" />
+							</p:selectOneRadio>
+						</p:panel>
 					</div>
 				</div>
 			</div>

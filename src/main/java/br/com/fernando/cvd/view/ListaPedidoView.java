@@ -10,40 +10,43 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.fernando.cvd.model.Pedido;
+import br.com.fernando.cvd.model.StatusPedido;
 import br.com.fernando.cvd.service.PedidoService;
 import br.com.fernando.cvd.util.FacesUtil;
 
-
 @Named
 @ViewScoped
-public class ListaPedidoView implements Serializable{
-	
+public class ListaPedidoView implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private PedidoService pedidoService;
-	
+
 	private List<Pedido> pedidos = new ArrayList<>();
-	
+
 	private List<Pedido> pedidoSelecionados = new ArrayList<>();
-	
-	
-		
 
 	@PostConstruct
 	public void inicializar() {
-		pedidos = pedidoService.listarTodos();		
-	}
-	
-	public void excluirSelecionados() {
-		for (Pedido pedido : pedidoSelecionados) {
-			pedidoService.excluir(pedido);
-			pedidos.remove(pedido);
-		}
-		
-		FacesUtil.addInfoMessage("Pedido(s) excluído(s) com sucesso!");
+		pedidos = pedidoService.listarTodos();
 	}
 
+	public void excluirSelecionados() {
+		for (Pedido pedido : pedidoSelecionados) {
+			if (pedido.getStatusPedido().getId() == StatusPedido.STATUS_ABERTO) {
+				pedidoService.cancelarPedido(pedido);
+				atualizaLista();			
+				FacesUtil.addInfoMessage("Pedido(s) excluído(s) com sucesso!");
+			} else {
+				FacesUtil.addErrorMessage("Pedido(s) não pode ser excluído(s)");
+			}
+		}
+
+	}
+	public void atualizaLista(){
+		pedidos = pedidoService.listarTodos();
+	}
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -59,6 +62,5 @@ public class ListaPedidoView implements Serializable{
 	public void setPedidoSelecionados(List<Pedido> pedidoSelecionados) {
 		this.pedidoSelecionados = pedidoSelecionados;
 	}
-
 
 }

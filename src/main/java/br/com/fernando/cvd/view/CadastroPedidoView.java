@@ -11,13 +11,22 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.fernando.cvd.model.HistoricoPedido;
 import br.com.fernando.cvd.model.ItemPedido;
 import br.com.fernando.cvd.model.Pedido;
 import br.com.fernando.cvd.model.Produto;
+import br.com.fernando.cvd.model.Promocao;
+import br.com.fernando.cvd.model.StatusPedido;
+import br.com.fernando.cvd.model.TipoPagamento;
 import br.com.fernando.cvd.model.Usuario;
+import br.com.fernando.cvd.service.HistoricoPedidoService;
 import br.com.fernando.cvd.service.PedidoService;
 import br.com.fernando.cvd.service.ProdutoService;
+import br.com.fernando.cvd.service.PromocaoService;
+import br.com.fernando.cvd.service.StatusPedidoService;
+import br.com.fernando.cvd.service.TipoPagamentoService;
 import br.com.fernando.cvd.service.UsuarioService;
+import br.com.fernando.cvd.util.FacesUtil;
 
 @Named
 @SessionScoped
@@ -31,78 +40,133 @@ public class CadastroPedidoView implements Serializable {
 	private ProdutoService produtoService;
 	@Inject
 	private UsuarioService usuarioService;
+	@Inject
+	private TipoPagamentoService tipoPagamentoService;
+	@Inject
+	private StatusPedidoService statusPedidoService;
+	@Inject
+	private PromocaoService promocaoService;
+	@Inject
+	private HistoricoPedidoService historicoPedidoService;
+	
 	
 	private Pedido pedido = new Pedido();
-	
+
 	private Long idPedido;
-	
-	private Double quantidade= new Double(1);
-	
+
+	private Double quantidade = new Double(1);
+
 	private Long idProduto;
-	
+
 	private Produto produto = new Produto();
-	
+
 	private ItemPedido item = new ItemPedido();
-	
+
 	private Usuario usuario = new Usuario();
+	
+	private HistoricoPedido historicoPedido = new HistoricoPedido();
+	
+	private StatusPedido statusPedido = new StatusPedido();
+
+	private Promocao promocao;
 	
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	private List<ItemPedido> itensSelecionados = new ArrayList<>();
-		
+
 	private List<ItemPedido> itens = new ArrayList<>();
 	
+	private List<TipoPagamento> tiposPagamento = new ArrayList<>();
+
 	@PostConstruct
 	public void inicializar() {
 		System.out.println("##### Inicializou CadastroPedidoView ######");
 		if (idProduto != null) {
-			System.out.println("idProduto antes de buscar no banco: "+idProduto);
+			System.out.println("idProduto antes de buscar no banco: " + idProduto);
 			produto = produtoService.buscarPorId(idProduto);
-			System.out.println("Produto_inicializar: "+produto.getDescricao());
+			System.out.println("Produto_inicializar: " + produto.getDescricao());
 			usuario = usuarioService.buscarPorId(1L);
-			preencherPedido();
+			adicionarItem();
 		}
-				
+		tiposPagamento = tipoPagamentoService.listarTodos();
+		statusPedido = statusPedidoService.buscarPorId(StatusPedido.STATUS_ABERTO);
+		//promocao default 1 - nenhuma
+		promocao = promocaoService.buscarPorId(1l);
 	}
+
 	@PreDestroy
-	public void finalizar(){
+	public void finalizar() {
 		System.out.println("### Encerrou CadastroPedidoView ###");
 	}
-		
-	public void preencherPedido(){
-		adicionarItem();
-		//pedido
+
+	public void preencherPedido() {
+		//adicionarItem();
+		// pedido
 		pedido.setDataPedido(new Date());
 		pedido.setItemPedido(itens);
+		pedido.setTotal(calculaValorPedido(itens));
 		pedido.setUsuario(usuario);
-		System.out.println("Id do produto: "+produto.getId());
-		pedido.setNumeroPedido(produto.getId()+1000L);
-		System.out.println("num_pedido: "+pedido.getNumeroPedido());
-	
-		System.out.println("Itens: "+pedido.getItemPedido().size());
+		System.out.println("Id do produto: " + produto.getId());
+		pedido.setPromocao(promocao);
+		pedido.setStatusPedido(statusPedido);
+		pedido.setVendedor(usuario);
+		pedido.setNumeroPedido(new Date().getTime()+1000L+usuario.getId());
+		System.out.println("num_pedido: " + pedido.getNumeroPedido());
+		System.out.println("Itens: " + pedido.getItemPedido().size());
 	}
+
 	public void adicionarItem() {
-		//itens
+		// itens
 		item.setProduto(produto);
 		item.setQuantidade(quantidade);
-		System.out.println("item quantidade: "+quantidade);
+		System.out.println("item quantidade: " + quantidade);
 		item.setPrecoUnitario(produto.getPrecoUnitario());
 		itens.add(item);
 		item = new ItemPedido();
 	}
+
 	public String salvar() {
-		
-		pedidoService.salvar(pedido);
+		System.out.println("Itens comprados "+itens.size());
+		preencherPedido();
+		System.out.println("itens no pedido: "+pedido.getItemPedido().size());
+		System.out.println("valor total pedido: "+pedido.getTotal());
+		System.out.println("tipo Pagamento selecionado: "+pedido.getTipoPagamento().getDescricao());
+		this.pedido = pedidoService.salvar(pedido);
+		System.out.println(pedido.getNumeroPedido());
+		incluiStatus();
+		limpar();
 		return "lista-pedido.xhtml?faces-redirect=true";
 	}
-	
-		
-	public void limparItens(){
-		itens = new ArrayList<>();
-		System.out.println("limpando Itens...");
+	public void incluiStatus(){
+		historicoPedido.setDataStatus(new Date());
+		historicoPedido.setPedido(pedido);
+		historicoPedido.setStatusPedido(statusPedido);
+		historicoPedidoService.salvar(historicoPedido);
 	}
 	
+	public String limparItens() {
+		for (ItemPedido i : itensSelecionados) {
+			itens.remove(i);
+		}
+		System.out.println("limpando Itens...");
+		FacesUtil.addInfoMessage("Item(ns) excluído(s) com sucesso!");
+		idProduto = null;
+		return "cadastro-pedido.xhtml?faces-redirect=true";
+	}
 	
+	public Double calculaValorPedido(List<ItemPedido> itens) {
+		Double soma = new Double(0);
+		Double frete = new Double(0);
+		for (ItemPedido i : itens) {
+			soma += i.getProduto().getPrecoUnitario();
+		}
+		System.out.println("total pedido: " + (soma + frete));
+		return soma + frete;
+	}
+	public void limpar(){
+		pedido = new Pedido();
+		itens = new ArrayList<>();
+	}
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -182,5 +246,29 @@ public class CadastroPedidoView implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
+	public List<TipoPagamento> getTiposPagamento() {
+		return tiposPagamento;
+	}
+
+	public void setTiposPagamento(List<TipoPagamento> tiposPagamento) {
+		this.tiposPagamento = tiposPagamento;
+	}
+
+	public Promocao getPromocao() {
+		return promocao;
+	}
+
+	public void setPromocao(Promocao promocao) {
+		this.promocao = promocao;
+	}
+
+	public StatusPedido getStatusPedido() {
+		return statusPedido;
+	}
+
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
+	}
+
 }
