@@ -55,7 +55,7 @@
 
 
 					<p:dataTable id="pedidoTable" widgetVar="pedidoTable" rows="10"
-						value="#{listaPedidoView.pedidos}" var="pedido"
+						value="#{listaPedidoView.pedidos}" var="pedido" reflow="true"
 						rowKey="#{pedido.id}" paginator="true"
 						selection="#{listaPedidoView.pedidoSelecionados}"
 						paginatorPosition="bottom"
