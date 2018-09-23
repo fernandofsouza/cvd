@@ -9,40 +9,30 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 import br.com.fernando.cvd.model.Pedido;
 import br.com.fernando.cvd.model.StatusPedido;
-import br.com.fernando.cvd.model.Usuario;
 import br.com.fernando.cvd.service.PedidoService;
-import br.com.fernando.cvd.service.UsuarioService;
 import br.com.fernando.cvd.util.FacesUtil;
 
 @Named
 @ViewScoped
-public class ListaPedidoView implements Serializable {
+public class ListaStatusPedidoView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private PedidoService pedidoService;
 	
-	@Inject
-	private UsuarioService usuarioService; 
-	private Usuario usuario;
-	
+	                                                               	
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	private List<Pedido> pedidoSelecionados = new ArrayList<>();
 
-	Subject currentUser = SecurityUtils.getSubject();
-	
+		
 	
 	@PostConstruct
 	public void inicializar() {
-		this.usuario = usuarioService.buscarPorLogin(currentUser.getPrincipal().toString());
-		pedidos = pedidoService.listarTodosPorUsuario(usuario);
+		pedidos = pedidoService.listarTodos();
 	}
 
 	public void excluirSelecionados() {
@@ -58,7 +48,7 @@ public class ListaPedidoView implements Serializable {
 
 	}
 	public void atualizaLista(){
-		pedidos = pedidoService.listarTodosPorUsuario(usuario);
+		pedidos = pedidoService.listarTodos();
 	}
 	public List<Pedido> getPedidos() {
 		return pedidos;

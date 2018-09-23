@@ -50,6 +50,17 @@ public class PedidoDao implements Serializable {
 		}
 	return p;	
 	}
-	
+	public List<Pedido> listarTodosPorUsuario(Long id) {
+		List<Pedido>p = new ArrayList<Pedido>();
+		try {
+			p = (List<Pedido>) manager.createQuery("Select p FROM Pedido p where p.usuario.id = :id", Pedido.class)
+					.setParameter("id", id)
+					.getResultList();
+		} catch (Exception e) {
+			System.out.println("Erro: ");
+			e.printStackTrace();
+		}
+	return p;	
+	}
 	
 }

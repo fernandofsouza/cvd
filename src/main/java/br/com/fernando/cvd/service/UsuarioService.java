@@ -36,4 +36,7 @@ public class UsuarioService implements Serializable {
 		return usuarioDao.buscarPorId(id);
 	}
 
+	public Usuario buscarPorLogin(String login) {
+		return usuarioDao.buscarPorLogin(login);
+	}
 }

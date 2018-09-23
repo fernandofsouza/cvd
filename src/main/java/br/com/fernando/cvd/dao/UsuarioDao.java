@@ -38,7 +38,20 @@ public class UsuarioDao implements Serializable {
 	public Usuario buscarPorId(Long id) {
 		return manager.find(Usuario.class, id);
 	}
-	
+	public Usuario buscarPorLogin(String login) {
+		List<Usuario> u = new ArrayList<Usuario>();
+		try {
+			u = (List<Usuario>) manager.createQuery("Select u FROM Usuario u where u.login = :login", Usuario.class)
+					.setParameter("login", login)
+					.getResultList();
+		} catch (Exception e) {
+			System.out.println("Erro: ");
+			e.printStackTrace();
+		}
+		if(u != null){
+			return u.get(0);
+		}else return new Usuario();
+	}
 	
 	public List<Usuario> listarTodos() {
 		List<Usuario> u = new ArrayList<Usuario>();

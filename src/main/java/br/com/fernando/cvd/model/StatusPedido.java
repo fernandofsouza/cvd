@@ -1,5 +1,7 @@
 package br.com.fernando.cvd.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity(name="status_pedido")
-public class StatusPedido {
+public class StatusPedido implements Serializable{
 
 	public static final Long STATUS_ABERTO = 1l;
 	public static final Long STATUS_FATURADO = 2l;
@@ -24,7 +26,6 @@ public class StatusPedido {
 	public static final Long STATUS_CANCELADO = 10l;
 	
 
-@SuppressWarnings("unused")
 private static final long serialVersionUID = 1L;
 
 @Id

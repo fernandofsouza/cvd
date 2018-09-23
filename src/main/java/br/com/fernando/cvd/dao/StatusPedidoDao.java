@@ -40,10 +40,11 @@ public class StatusPedidoDao implements Serializable {
 		return manager.find(StatusPedido.class, id);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<StatusPedido> listarTodos() {
 		List<StatusPedido> s = new ArrayList<StatusPedido>();
 		try {
-			s = (List<StatusPedido>) manager.createQuery("Select s FROM StatusPedido s", StatusPedido.class).getResultList();
+			s = (List<StatusPedido>) manager.createNativeQuery("Select * from status_pedido", StatusPedido.class).getResultList();
 		} catch (Exception e) {
 			System.out.println("Erro: ");
 			e.printStackTrace();

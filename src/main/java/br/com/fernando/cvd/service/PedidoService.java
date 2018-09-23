@@ -9,6 +9,7 @@ import br.com.fernando.cvd.dao.PedidoDao;
 import br.com.fernando.cvd.dao.StatusPedidoDao;
 import br.com.fernando.cvd.model.Pedido;
 import br.com.fernando.cvd.model.StatusPedido;
+import br.com.fernando.cvd.model.Usuario;
 
 
 
@@ -39,7 +40,10 @@ public class PedidoService implements Serializable {
 	public List<Pedido> listarTodos() {
 		return pedidoDao.listarTodos();
 	}
-
+	public List<Pedido> listarTodosPorUsuario(Usuario usuario){
+		return pedidoDao.listarTodosPorUsuario(usuario.getId());
+	}
+	
 	public Pedido buscarPorId(Long id) {
 		return pedidoDao.buscarPorId(id);
 	}
