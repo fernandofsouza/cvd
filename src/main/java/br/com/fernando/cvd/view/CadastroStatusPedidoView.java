@@ -2,14 +2,17 @@ package br.com.fernando.cvd.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.fernando.cvd.model.HistoricoPedido;
 import br.com.fernando.cvd.model.Pedido;
 import br.com.fernando.cvd.model.StatusPedido;
+import br.com.fernando.cvd.service.HistoricoPedidoService;
 import br.com.fernando.cvd.service.PedidoService;
 import br.com.fernando.cvd.service.StatusPedidoService;
 
@@ -25,7 +28,7 @@ public class CadastroStatusPedidoView implements Serializable {
 
 	private StatusPedido statusPedido = new StatusPedido();
 	private StatusPedido statusPedidoSelecionado = new StatusPedido();
-
+	private HistoricoPedido historicoPedido = new HistoricoPedido();
 	private Long idPedido;
 
 	@Inject
@@ -33,6 +36,9 @@ public class CadastroStatusPedidoView implements Serializable {
 
 	@Inject
 	private StatusPedidoService statusPedidoService;
+	
+	@Inject
+	private HistoricoPedidoService historicoPedidoService;
 
 	public void inicializar() {
 		if (idPedido != null) {
@@ -43,10 +49,18 @@ public class CadastroStatusPedidoView implements Serializable {
 	}
 
 	public String salvar() {
+		gerarHistoricoPedido();
 		pedidoService.salvar(pedido);
 		return "lista-status-pedido.xhtml?faces-redirect=true";
 	}
-
+	
+	public void gerarHistoricoPedido(){
+		historicoPedido.setDataStatus(new Date());
+		historicoPedido.setPedido(pedido);
+		historicoPedido.setStatusPedido(pedido.getStatusPedido());
+		historicoPedidoService.salvar(historicoPedido);
+	}
+	
 	public String excluir() {
 		pedidoService.excluir(pedido);
 		return "lista-status-pedido.xhtml?faces-redirect=true";

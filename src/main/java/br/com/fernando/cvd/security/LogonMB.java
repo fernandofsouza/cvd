@@ -73,10 +73,11 @@ public class LogonMB extends AdminSession implements Serializable {
         }
     }
         
-    public void logout(){
+    public void logout() throws IOException{
     	Subject currentUser = SecurityUtils.getSubject();
     	log.info( "User [" + currentUser.getPrincipal() + "] logged out successfully." );
     	currentUser.logout();
+    	Faces.redirect("index.xhtml");
     }
     
     @Override
@@ -109,7 +110,9 @@ public class LogonMB extends AdminSession implements Serializable {
     }
 
     public String getCurrentUser() {
-        return SecurityUtils.getSubject().getPrincipal().toString();
+        if(SecurityUtils.getSubject() != null){
+    	return SecurityUtils.getSubject().getPrincipal().toString();
+        }return "anonimo";
     }
 
 }

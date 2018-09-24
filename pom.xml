@@ -140,7 +140,7 @@
 			<artifactId>shiro-web</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-
+		
 	</dependencies>
 
 	<build>
@@ -205,6 +205,14 @@
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 			<layout>default</layout>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-deluan-maven</id>
+			<name>bintray</name>
+			<url>http://dl.bintray.com/deluan/maven</url>
 		</repository>
 	</repositories>
 </project>
