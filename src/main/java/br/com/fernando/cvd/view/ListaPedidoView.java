@@ -9,9 +9,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-
 import br.com.fernando.cvd.model.Pedido;
 import br.com.fernando.cvd.model.StatusPedido;
 import br.com.fernando.cvd.model.Usuario;
@@ -36,12 +33,12 @@ public class ListaPedidoView implements Serializable {
 
 	private List<Pedido> pedidoSelecionados = new ArrayList<>();
 
-	Subject currentUser = SecurityUtils.getSubject();
+	/*Subject currentUser = SecurityUtils.getSubject();*/
 	
 	
 	@PostConstruct
 	public void inicializar() {
-		this.usuario = usuarioService.buscarPorLogin(currentUser.getPrincipal().toString());
+		/*this.usuario = usuarioService.buscarPorLogin(currentUser.getPrincipal().toString());*/
 		pedidos = pedidoService.listarTodosPorUsuario(usuario);
 	}
 

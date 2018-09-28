@@ -38,7 +38,7 @@
 						</p:commandButton>
 						<p:spacer width="5" />
 						<p:commandButton value="Voltar"
-							action="/pages/principal/produtos-venda.xhtml?faces-redirect=true"
+							action="/public/produtos-venda.xhtml?faces-redirect=true"
 							process="@this" icon="fa fa-close" />
 
 					</div>
@@ -73,12 +73,12 @@
 								styleClass="align-center" />
 							<p:column headerText="idProduto">
 								<h:link value="#{item.produto.id}"
-									outcome="/pages/principal/produtos-venda.xhtml">
+									outcome="/public/produtos-venda.xhtml">
 								</h:link>
 							</p:column>
 							<p:column headerText="Produto">
 								<h:link value="#{item.produto.descricao}"
-									outcome="/pages/principal/produtos-venda.xhtml">
+									outcome="/public/produtos-venda.xhtml">
 								</h:link>
 							</p:column>
 

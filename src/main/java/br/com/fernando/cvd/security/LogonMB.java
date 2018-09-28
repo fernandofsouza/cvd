@@ -1,24 +1,11 @@
 package br.com.fernando.cvd.security;
 
-import static br.com.fernando.cvd.util.FacesUtil.addDetailMessage;
-
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Specializes;
 import javax.inject.Named;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.omnifaces.util.Faces;
-import org.omnifaces.util.Messages;
 
 import com.github.adminfaces.template.session.AdminSession;
 
@@ -40,7 +27,7 @@ public class LogonMB extends AdminSession implements Serializable {
     private Logger log = Logger.getLogger(LogonMB.class.getName());
 
 
-    public void login() throws IOException {
+    /*public void login() throws IOException {
         UsernamePasswordToken token = new UsernamePasswordToken(email,
                 password);
 
@@ -54,8 +41,8 @@ public class LogonMB extends AdminSession implements Serializable {
             currentUser.login(token);
             addDetailMessage("Logged in successfully as <b>" + email + "</b>");
             Faces.getExternalContext().getFlash().setKeepMessages(true);
-            Faces.redirect("index.xhtml");
-       /* you can handle specific exceptions*/
+            Faces.redirect("public/index.xhtml");
+        you can handle specific exceptions
         } catch (UnknownAccountException uae) {
             //username wasn't in the system, show them an error message?
             throw uae;
@@ -84,7 +71,7 @@ public class LogonMB extends AdminSession implements Serializable {
     public boolean isLoggedIn() {
         return SecurityUtils.getSubject().isAuthenticated();
     }
-
+	*/
     public String getEmail() {
         return email;
     }
@@ -108,11 +95,11 @@ public class LogonMB extends AdminSession implements Serializable {
     public void setRemember(boolean remember) {
         this.remember = remember;
     }
-
+	/*
     public String getCurrentUser() {
-        if(SecurityUtils.getSubject() != null){
+        
     	return SecurityUtils.getSubject().getPrincipal().toString();
-        }return "anonimo";
-    }
+        
+    }*/
 
 }
