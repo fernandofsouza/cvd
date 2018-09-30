@@ -72,6 +72,8 @@ public class LogonMB extends AdminSession implements Serializable {
         return SecurityUtils.getSubject().isAuthenticated();
     }
 	*/
+    
+    
     public String getEmail() {
         return email;
     }
