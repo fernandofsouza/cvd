@@ -23,6 +23,7 @@ import javax.inject.Inject;
 
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.PartitionManager;
+import org.picketlink.idm.PermissionManager;
 import org.picketlink.idm.RelationshipManager;
 import org.picketlink.idm.credential.Password;
 import org.picketlink.idm.model.basic.BasicModel;
@@ -48,6 +49,7 @@ public class SecurityInitializer {
     public void create() {
         IdentityManager identityManager = this.partitionManager.createIdentityManager();
         RelationshipManager relationshipManager = this.partitionManager.createRelationshipManager();
+        PermissionManager permissionManager = this.partitionManager.createPermissionManager();
         //Criação de usuários
         User user = new User("fernando@souza");
 
@@ -79,7 +81,7 @@ public class SecurityInitializer {
         Role superuser = new Role("superuser");
         identityManager.add(superuser);
         BasicModel.grantRole(relationshipManager, admin, superuser);
-        
+        permissionManager.grantPermission(admin, User.class, "READ");
         
     }
 }

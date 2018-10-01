@@ -11,7 +11,6 @@ import javax.inject.Named;
 
 import org.picketlink.Identity;
 import org.picketlink.idm.IdentityManager;
-import org.picketlink.idm.model.basic.BasicModel;
 import org.picketlink.idm.model.basic.User;
 
 import br.com.fernando.cvd.model.Pedido;
@@ -47,7 +46,7 @@ public class ListaPedidoView implements Serializable {
 	
 	@PostConstruct
 	public void inicializar() {
-		User user = BasicModel.getUser(identityManager, identity.getAccount().getAttribute("loginName").toString());	
+		User user = (User)identity.getAccount();	
 		System.out.println("User :"+user.getLoginName());
 		this.usuario = usuarioService.buscarPorLogin(user.getLoginName());
 		
