@@ -9,6 +9,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.picketlink.Identity;
+import org.picketlink.idm.IdentityManager;
+import org.picketlink.idm.model.basic.BasicModel;
+import org.picketlink.idm.model.basic.User;
+
 import br.com.fernando.cvd.model.Pedido;
 import br.com.fernando.cvd.model.StatusPedido;
 import br.com.fernando.cvd.model.Usuario;
@@ -29,6 +34,10 @@ public class ListaPedidoView implements Serializable {
 	private UsuarioService usuarioService; 
 	private Usuario usuario;
 	
+	@Inject Identity identity;
+	
+	@Inject
+	IdentityManager identityManager;
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	private List<Pedido> pedidoSelecionados = new ArrayList<>();
@@ -38,7 +47,10 @@ public class ListaPedidoView implements Serializable {
 	
 	@PostConstruct
 	public void inicializar() {
-		/*this.usuario = usuarioService.buscarPorLogin(currentUser.getPrincipal().toString());*/
+		User user = BasicModel.getUser(identityManager, identity.getAccount().getAttribute("loginName").toString());	
+		System.out.println("User :"+user.getLoginName());
+		this.usuario = usuarioService.buscarPorLogin(user.getLoginName());
+		
 		pedidos = pedidoService.listarTodosPorUsuario(usuario);
 	}
 

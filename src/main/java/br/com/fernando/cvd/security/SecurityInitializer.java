@@ -16,15 +16,18 @@
  **/
 package br.com.fernando.cvd.security;
 
-import org.picketlink.idm.IdentityManager;
-import org.picketlink.idm.PartitionManager;
-import org.picketlink.idm.credential.Password;
-import org.picketlink.idm.model.basic.User;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+
+import org.picketlink.idm.IdentityManager;
+import org.picketlink.idm.PartitionManager;
+import org.picketlink.idm.RelationshipManager;
+import org.picketlink.idm.credential.Password;
+import org.picketlink.idm.model.basic.BasicModel;
+import org.picketlink.idm.model.basic.Role;
+import org.picketlink.idm.model.basic.User;
 
 /**
  ** This startup bean creates a default user account when the application is started. Since we are not
@@ -44,14 +47,39 @@ public class SecurityInitializer {
     @PostConstruct
     public void create() {
         IdentityManager identityManager = this.partitionManager.createIdentityManager();
-
+        RelationshipManager relationshipManager = this.partitionManager.createRelationshipManager();
+        //Criação de usuários
         User user = new User("fernando@souza");
 
         user.setEmail("fernando@souza.com");
         user.setFirstName("fernando");
         user.setLastName("souza");
-
+        
+        
         identityManager.add(user);
         identityManager.updateCredential(user, new Password("fernando"));
+        
+        user = new User("admin@faces.com");
+        user.setEmail("admin@faces.com");
+        user.setFirstName("admin");
+        user.setLastName("faces");
+        
+        identityManager.add(user);
+        identityManager.updateCredential(user, new Password("admin"));
+        
+        user = new User("user@faces.com");
+        user.setEmail("user@faces.com");
+        user.setFirstName("user");
+        user.setLastName("facesUser");
+        
+        identityManager.add(user);
+        identityManager.updateCredential(user, new Password("user"));
+        //Criação de roles
+        User admin = BasicModel.getUser(identityManager, "admin@faces.com");
+        Role superuser = new Role("superuser");
+        identityManager.add(superuser);
+        BasicModel.grantRole(relationshipManager, admin, superuser);
+        
+        
     }
 }

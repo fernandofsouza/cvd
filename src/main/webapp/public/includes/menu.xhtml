@@ -9,33 +9,41 @@
 				<i class="fa fa-home"></i>
 				<span>Home</span>
 			</p:link></li>
+		<li><p:link rendered="#{not identity.loggedIn}" href="/public/login.xhtml">
+				<i class="fa fa-sign-in"></i>
+				<span>Login</span>
+			</p:link></li>
 		<li class="header">Cadastros</li>
-		
-		<li><p:link href="/auth/protected/fornecedor/lista-fornecedor.xhtml">
+
+		<li><p:link rendered="#{identity.hasPermission('superuser','superuser')}"
+				href="/auth/protected/fornecedor/lista-fornecedor.xhtml">
 				<i class="fa fa-edit"></i>
 				<span>Fornecedor</span>
 			</p:link></li>
-		<li><p:link href="/auth/protected/pagamento/lista-tipo-pagamento.xhtml">
+		<li><p:link
+				href="/auth/protected/pagamento/lista-tipo-pagamento.xhtml">
 				<i class="fa fa-edit"></i>
 				<span>Tipos Pagamento</span>
 			</p:link></li>
-			<li><p:link href="/auth/protected/categoria-produto/lista-categoria-produto.xhtml">
+		<li><p:link
+				href="/auth/protected/categoria-produto/lista-categoria-produto.xhtml">
 				<i class="fa fa-edit"></i>
 				<span>Categoria Produto</span>
 			</p:link></li>
-			<li><p:link href="/public/produtos-venda.xhtml">
+		<li><p:link href="/public/produtos-venda.xhtml">
 				<i class="fa fa-edit"></i>
 				<span>Produtos</span>
 			</p:link></li>
-			<li><p:link href="/auth/pedido/lista-pedido.xhtml">
+		<li><p:link href="/auth/pedido/lista-pedido.xhtml">
 				<i class="fa fa-edit"></i>
 				<span>Pedidos</span>
 			</p:link></li>
-			<li><p:link href="/auth/protected/acompanhamento/lista-status-pedido.xhtml">
+		<li><p:link
+				href="/auth/protected/acompanhamento/lista-status-pedido.xhtml">
 				<i class="fa fa-edit"></i>
 				<span>Acompanhamento</span>
 			</p:link></li>
-		
+
 	</ul>
 
 
