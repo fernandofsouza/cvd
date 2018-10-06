@@ -11,6 +11,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.picketlink.Identity;
+import org.picketlink.idm.model.basic.User;
+
 import br.com.fernando.cvd.model.HistoricoPedido;
 import br.com.fernando.cvd.model.ItemPedido;
 import br.com.fernando.cvd.model.Pedido;
@@ -48,7 +51,8 @@ public class CadastroPedidoView implements Serializable {
 	private PromocaoService promocaoService;
 	@Inject
 	private HistoricoPedidoService historicoPedidoService;
-	
+	@Inject 
+	Identity identity;
 	
 	private Pedido pedido = new Pedido();
 
@@ -85,7 +89,11 @@ public class CadastroPedidoView implements Serializable {
 			System.out.println("idProduto antes de buscar no banco: " + idProduto);
 			produto = produtoService.buscarPorId(idProduto);
 			System.out.println("Produto_inicializar: " + produto.getDescricao());
-			usuario = usuarioService.buscarPorId(1L);
+			
+			User user = (User)identity.getAccount();	
+			System.out.println("User :"+user.getLoginName());
+			this.usuario = usuarioService.buscarPorLogin(user.getLoginName());
+		
 			adicionarItem();
 		}
 		tiposPagamento = tipoPagamentoService.listarTodos();
